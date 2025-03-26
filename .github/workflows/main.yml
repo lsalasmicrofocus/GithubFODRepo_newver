@@ -20,6 +20,8 @@ jobs:
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '17'
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Set up ScanCentral log directory
         run: |
           mkdir -p ${{ github.workspace }}/logs
