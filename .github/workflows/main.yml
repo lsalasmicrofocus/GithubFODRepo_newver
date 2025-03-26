@@ -21,6 +21,14 @@ jobs:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '17'
 
+      - name: Cache Maven dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository  # Cache Maven dependencies
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}  # Cache key based on the pom.xml file
+          restore-keys: |
+            ${{ runner.os }}-maven-  # Fallback cache key
+
       - name: Run FoD SAST Scan
         uses: fortify/github-action@v1
         with:
@@ -38,12 +46,7 @@ jobs:
       - name: Set up ScanCentral log directory
         run: |
           mkdir -p ${{ github.workspace }}/logs
-          # Simulate ScanCentral log generation (replace with the actual ScanCentral command)
           echo "ScanCentral logs for the project" > ${{ github.workspace }}/logs/scancentral.log
-          # Replace the above line with the actual ScanCentral scan command
-          # For example, scancentral scan --output ${{ github.workspace }}/logs/scancentral.log
-
-          # If you have a package to upload (e.g., .zip), you can add this step to generate the package
           zip -r ${{ github.workspace }}/scancentral-package.zip ${{ github.workspace }}/logs
 
       - name: Upload ScanCentral Logs as Artifact
