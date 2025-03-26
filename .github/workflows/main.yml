@@ -20,6 +20,11 @@ jobs:
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '17'
+      - name: Set up ScanCentral log directory
+        run: |
+          mkdir -p ${{ github.workspace }}/logs
+          echo "ScanCentral logs will be here" > ${{ github.workspace }}/logs/scancentral.log
+          # Replace with the actual ScanCentral scan that generates logs
       - name: Run FoD SAST Scan
         uses: fortify/github-action@v1
         with:
@@ -35,3 +40,14 @@ jobs:
           DO_WAIT: true
           DO_EXPORT: true
           # TOOL_DEFINITIONS: https://ftfy.mycompany.com/tool-definitions/v1/tool-definitions.yaml.zip
+      - name: Upload ScanCentral Logs as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: scancentral-logs
+          path: ${{ github.workspace }}/logs/
+ 
+      - name: Upload ScanCentral Package as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: scancentral-package
+          path: ${{ github.workspace }}/scancentral-package.zip
