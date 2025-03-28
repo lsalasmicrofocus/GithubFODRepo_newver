@@ -24,6 +24,8 @@ jobs:
         uses: fortify/github-action@v1.0.27
         with:
           sast-scan: true
+      - name: Cache dependencies
+        uses: actions/cache@v4.0.2
         env:
           FOD_URL: https://ams.fortify.com
           FOD_TENANT: ${{secrets.FOD_TENANT}}
