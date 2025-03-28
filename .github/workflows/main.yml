@@ -11,10 +11,8 @@ jobs:
   FoD-SAST-Scan:
     # Use the appropriate runner for building your source code. 
     # Use Windows runner for projects that use msbuild. Additional changes to RUN commands will be required..
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:    
-      - name: Cache dependencies
-        uses: actions/cache@v4.0.2
       - name: Check out source code
         uses: actions/checkout@v4  
       - name: Setup Java
@@ -33,8 +31,8 @@ jobs:
           FOD_CLIENT_SECRET: ${{secrets.FOD_CLIENT_SECRET}}
           # EXTRA_FOD_LOGIN_OPTS: --socket-timeout=60s
           FOD_RELEASE: ${{secrets.FOD_RELEASE_ID}}
-          DO_PACKAGE_DEBUG: true
           EXTRA_PACKAGE_OPTS: -bt none 
           DO_WAIT: true
           DO_EXPORT: true
+          DO_PACKAGE_DEBUG: true
           # TOOL_DEFINITIONS: https://ftfy.mycompany.com/tool-definitions/v1/tool-definitions.yaml.zip
