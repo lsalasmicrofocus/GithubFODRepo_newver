@@ -31,6 +31,7 @@ jobs:
           FOD_CLIENT_SECRET: ${{secrets.FOD_CLIENT_SECRET}}
           # EXTRA_FOD_LOGIN_OPTS: --socket-timeout=60s
           FOD_RELEASE: ${{secrets.FOD_RELEASE_ID}}
+          DO_PACKAGE_DEBUG: true
           EXTRA_PACKAGE_OPTS: -bt none 
           DO_WAIT: true
           DO_EXPORT: true
