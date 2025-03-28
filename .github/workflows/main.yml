@@ -13,6 +13,8 @@ jobs:
     # Use Windows runner for projects that use msbuild. Additional changes to RUN commands will be required..
     runs-on: ubuntu-latest
     steps:    
+      - name: Cache dependencies
+        uses: actions/cache@v4.0.2
       - name: Check out source code
         uses: actions/checkout@v4  
       - name: Setup Java
@@ -24,8 +26,6 @@ jobs:
         uses: fortify/github-action@v1.0.27
         with:
           sast-scan: true
-      - name: Cache dependencies
-        uses: actions/cache@v4.0.2
         env:
           FOD_URL: https://ams.fortify.com
           FOD_TENANT: ${{secrets.FOD_TENANT}}
